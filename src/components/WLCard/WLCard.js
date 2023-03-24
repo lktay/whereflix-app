@@ -2,11 +2,15 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import "./WLCard.css";
 
-const MediaCard = () => {
+const MediaCard = (media) => {
   return (
-    <Card style={{ width: "60%", margin: "1rem auto" }}>
+    <Card
+      key={media._id}
+      style={{ width: "60%", margin: "1rem auto" }}
+    >
       <Card.Body className="flex">
         <Card.Img
+          className={media.complete ? "is-complete" : ""}
           variant="left"
           width={200}
           height={310}
@@ -20,7 +24,9 @@ const MediaCard = () => {
           </Card.Body>
           <Card.Footer className="footer">
             <Button>Finished watching?</Button>
-            <Card.Text as="h5">completed</Card.Text>
+            <Card.Text as="h5">
+              {media.complete ? "completed" : "not started"}
+            </Card.Text>
           </Card.Footer>
         </Card.Body>
         <Button className="delete-btn">Delete from list</Button>
