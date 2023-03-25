@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
@@ -12,43 +12,31 @@ export default function DetailsModal({ results }) {
 
   const handleClose = () => setShow(false);
 
-  const handleShow = () => {
-    setShow(true);
+  const handleShow = () => setShow(true);
 
+  useEffect(() => {
     const getWatchInfo = async () => {
       try {
         const id = results.id;
-        if (results.media_type === "tv") {
-          const watchProvider = await axios.get(
-            `https://api.themoviedb.org/3/tv/${id}/watch/providers?api_key=${API_KEY}&language=en-US`
-          );
-          const ukProviderData = watchProvider.data.results.GB.flatrate;
-          setProviders(ukProviderData);
-        }
-        if (results.media_type === "movie") {
-          const watchProvider = await axios.get(
-            `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${API_KEY}&language=en-US`
-          );
-          const ukProviderData = watchProvider.data.results.GB.flatrate;
-          setProviders(ukProviderData);
-        }
+        const watchProvider = await axios.get(
+          `https://api.themoviedb.org/3/${results.media_type}/${id}/watch/providers?api_key=${API_KEY}&language=en-US`
+        );
+        const ukProviderData = watchProvider.data.results.GB?.flatrate ?? [];
+        setProviders(ukProviderData);
       } catch (err) {
         console.error(err);
         setError("Error retrieving watch providers");
       }
     };
 
-    getWatchInfo();
-    console.log(providers);
-  };
+    if (show) {
+      getWatchInfo();
+    }
+  }, [show, results]);
 
   return (
     <>
-      <Button
-        style={{ marginTop: "10px" }}
-        variant="primary"
-        onClick={handleShow}
-      >
+      <Button variant="primary" onClick={handleShow}>
         Where to watch
       </Button>
 
@@ -60,10 +48,12 @@ export default function DetailsModal({ results }) {
           {error ? (
             <p>{error}</p>
           ) : providers.length > 0 ? (
-            providers.map((provider) =>
-              provider && provider ? (
-                <p key={provider.provider_id}>{provider.provider_name}</p>
-              ) : null
+            providers.map(
+              (provider) =>
+                provider &&
+                provider.provider_id && (
+                  <p key={provider.provider_id}>{provider.provider_name}</p>
+                )
             )
           ) : (
             <p>No providers found</p>
