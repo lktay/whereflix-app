@@ -1,0 +1,16 @@
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.delete-btn {
+  height: 40px;
+  margin: auto 0;
+}
+.is-complete {
+  opacity: 0.4;
+}

@@ -1,0 +1,19 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 2% auto;
+  background-color: #0d6efd;
+  width: 90%;
+}
+.navbar button {
+  padding: 0.5% 4%;
+  border: none;
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 600;
+}
+button:hover {
+  background-color: antiquewhite;
+  color: #0d6efd;
+}
