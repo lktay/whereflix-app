@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
 import DetailsModal from "./DetailsModal";
+import BioModal from "./BioModal";
 
 const ResultsDisplay = ({ results }) => {
   return (
@@ -49,8 +50,11 @@ const ResultsDisplay = ({ results }) => {
                       {result.title || result.name}
                     </Card.Title>
                     <Card.Text>
-                      {result.release_date || "No Release Date Listed"}
+                      {result.media_type !== "person" && result.release_date
+                        ? result.release_date
+                        : ""}
                     </Card.Text>
+
                     <div
                       className="overflow-auto"
                       style={{ maxHeight: "7rem", minHeight: "7rem" }}
@@ -61,6 +65,11 @@ const ResultsDisplay = ({ results }) => {
                   <div className="d-flex justify-content-center">
                     {result.media_type !== "person" && (
                       <DetailsModal results={result} />
+                    )}
+                  </div>
+                  <div className="d-flex justify-content-center">
+                    {result.media_type === "person" && (
+                      <BioModal results={result} />
                     )}
                   </div>
                 </Card.Body>

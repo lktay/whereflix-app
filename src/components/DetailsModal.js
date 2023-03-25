@@ -45,16 +45,14 @@ export default function DetailsModal({ results }) {
   return (
     <>
       <Button
+        style={{ marginTop: "10px" }}
         variant="primary"
         onClick={handleShow}
       >
         Where to watch
       </Button>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-      >
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Where to watch</Modal.Title>
         </Modal.Header>
@@ -73,10 +71,7 @@ export default function DetailsModal({ results }) {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={handleClose}
-          >
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>
