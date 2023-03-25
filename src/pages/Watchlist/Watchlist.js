@@ -1,10 +1,9 @@
 import React from "react";
-import MediaCard from "../../components/WLCard/WLCard";
+import WatchlistContainer from "../../components/WatchlistContainer/WatchlistContainer";
 const WatchList = () => {
   return (
     <div>
-      <h1>watchlist</h1>
-      <MediaCard></MediaCard>
+      <WatchlistContainer />
     </div>
   );
 };
