@@ -10,6 +10,15 @@ const MediaCard = ({ media, completeMedia, deleteMedia }) => {
   const handleDeleteClick = () => {
     deleteMedia(media._id);
   };
+
+  let mediaTypeText;
+  if (media.media_type === "movie") {
+    mediaTypeText = "Movie";
+  } else if (media.media_type === "tv") {
+    mediaTypeText = "TV show";
+  } else {
+    mediaTypeText = "Unknown media type.";
+  }
   return (
     <Card style={{ width: "60%", margin: "1rem auto" }}>
       <Card.Body className="flex">
@@ -22,9 +31,23 @@ const MediaCard = ({ media, completeMedia, deleteMedia }) => {
         />
         <Card.Body>
           <Card.Header as="h4">{media.title}</Card.Header>
-          <Card.Body style={{ height: "12rem" }}>
+          <Card.Body>
+            <Card.Text>{mediaTypeText}</Card.Text>
             <Card.Text>{media.description}</Card.Text>
-            <Card.Text>Can watch on (insert providers here)</Card.Text>
+            <Card.Body>
+              <Card.Text>Available to watch on:</Card.Text>
+              <Card.Text>
+                {media.providers && media.providers.length > 0 ? (
+                  <ul>
+                    {media.providers.map((provider) => (
+                      <li key={provider}>{provider}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  "No providers available"
+                )}
+              </Card.Text>
+            </Card.Body>
           </Card.Body>
           <Card.Footer className="footer">
             <Button onClick={handleCompleteClick}>Finished watching?</Button>
@@ -37,7 +60,7 @@ const MediaCard = ({ media, completeMedia, deleteMedia }) => {
           className="delete-btn"
           onClick={handleDeleteClick}
         >
-          Delete from list
+          Delete
         </Button>
       </Card.Body>
     </Card>

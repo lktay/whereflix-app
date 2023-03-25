@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
+const DB = process.env.REACT_APP_SERVER;
 
 export default function DetailsModal({ results }) {
   const [show, setShow] = useState(false);
@@ -34,12 +35,35 @@ export default function DetailsModal({ results }) {
         }
       } catch (err) {
         console.error(err);
-        setError("Error retrieving watch providers");
+        setError("No providers found");
       }
     };
 
     getWatchInfo();
     console.log(providers);
+  };
+  const addMedia = async (providers) => {
+    try {
+      const providerNames = providers.map((provider) => provider.provider_name);
+      const response = await fetch(`${DB}/medialist/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          apiID: results.id,
+          title: results.name,
+          poster_path: results.poster_path,
+          description: results.overview,
+          media_type: results.media_type,
+          providers: providerNames,
+        }),
+      });
+      const data = await response.json();
+      console.log("Media added to watchlist:", data);
+    } catch (err) {
+      console.error("Error adding media to watchlist:", err);
+    }
   };
 
   return (
@@ -73,6 +97,12 @@ export default function DetailsModal({ results }) {
         </Modal.Body>
 
         <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => addMedia(providers)}
+          >
+            Add to Watchlist
+          </Button>
           <Button
             variant="secondary"
             onClick={handleClose}
