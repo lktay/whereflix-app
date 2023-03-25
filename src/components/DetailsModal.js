@@ -69,6 +69,7 @@ export default function DetailsModal({ results }) {
   return (
     <>
       <Button
+        style={{ marginTop: "10px" }}
         variant="primary"
         onClick={handleShow}
       >

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
 import axios from "axios";
 import ResultsDisplay from "../../components/ResultsDisplay";
+import "./Search.css";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -24,19 +25,17 @@ const Search = () => {
   };
 
   return (
-    <div>
+    <div className="search-bar-container">
       <Form onSubmit={handleFormSubmit}>
         <FormControl
           type="text"
           placeholder="Search Movies/TV Shows/People"
-          className="mr-sm-2"
+          className="mr-sm-2 search-bar"
           value={query}
           onChange={handleInputChange}
+          size="lg"
         />
-        <Button
-          variant="outline-success"
-          type="submit"
-        >
+        <Button variant="success" type="submit" id="search-btn" size="lg">
           Search
         </Button>
       </Form>
