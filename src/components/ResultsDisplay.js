@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Button, Col, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
+import DetailsModal from "./DetailsModal";
 
 const ResultsDisplay = ({ results }) => {
   return (
@@ -10,7 +11,7 @@ const ResultsDisplay = ({ results }) => {
     >
       {results.map((result) => (
         <Col key={result.id}>
-          <Card style={{ width: "90%", margin: "1rem auto", height: 800 }}>
+          <Card>
             {result.media_type === "person" ? (
               <Card.Img
                 variant="top"
@@ -36,7 +37,7 @@ const ResultsDisplay = ({ results }) => {
               </Card.Title>
               <Card.Text>{result.release_date}</Card.Text>
               <Card.Text>{result.overview}</Card.Text>
-              <Button variant="primary">Details</Button>
+              <DetailsModal results={result} />
             </Card.Body>
           </Card>
         </Col>

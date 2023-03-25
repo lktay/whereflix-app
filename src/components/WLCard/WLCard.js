@@ -18,7 +18,7 @@ const MediaCard = ({ media, completeMedia, deleteMedia }) => {
           variant="left"
           width={200}
           height={310}
-          src={`https://image.tmdb.org/t/p/w185${media.posterUrl}`}
+          src={`https://image.tmdb.org/t/p/w185${media.poster_path}`}
         />
         <Card.Body>
           <Card.Header as="h4">{media.title}</Card.Header>

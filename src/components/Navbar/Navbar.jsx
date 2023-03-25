@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="Navbar">
+    <div className="navbar">
       <button
         id="home"
         onClick={(e) => goTo(e.target.id)}
@@ -48,4 +49,5 @@ const Navbar = () => {
     </div>
   );
 };
+
 export default Navbar;
